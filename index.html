@@ -89,10 +89,26 @@
     .catalog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .car-card { background: #15151a; border: 1px solid #2a2a32; border-radius: 24px; overflow: hidden; transition: 0.2s; }
     .car-card:hover { transform: translateY(-4px); border-color: #ff7a1a; }
-    .car-image { height: 210px; background: linear-gradient(135deg, #292933, #17171c); display: grid; place-items: center; color: #6b6b75; font-weight: 900; font-size: 14px; }
-    .car-image.orange { background: linear-gradient(135deg, #563016, #1f1209); }
-    .car-image.blue { background: linear-gradient(135deg, #163b56, #09141f); }
-    .car-image.green { background: linear-gradient(135deg, #165636, #091f14); }
+    .car-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(135deg, #292933, #17171c);
+  overflow: hidden;
+  position: relative;
+}
+
+.car-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
+.car-card:hover .car-image img {
+  transform: scale(1.04);
+}
     .car-body { padding: 22px; }
     .car-brand { color: #a1a1aa; text-transform: uppercase; font-size: 12px; font-weight: 900; letter-spacing: 0.1em; margin-bottom: 4px; }
     .car-name { font-size: 23px; font-weight: 900; margin-bottom: 10px; }
@@ -404,79 +420,90 @@
         </div>
 
         <div class="catalog-grid">
-          <article class="car-card">
-            <div class="car-image orange">Фото Belgee X50+</div>
-            <div class="car-body">
-              <div class="car-brand">Belgee</div>
-              <div class="car-name">X50+</div>
-              <div class="car-specs">1.5 л · робот · передний привод</div>
-              <div class="car-price">от 2 119 000 ₽</div>
-              <div class="car-credit">платёж посчитаю по-честному</div>
-              <button class="btn btn-primary" onclick="scrollToQuiz()">Хочу расчёт</button>
-            </div>
-          </article>
+  <article class="car-card">
+    <div class="car-image">
+      <img src="./assets/cars/belgee-x50-plus.jpg" alt="Belgee X50+" loading="lazy">
+    </div>
+    <div class="car-body">
+      <div class="car-brand">Belgee</div>
+      <div class="car-name">X50+</div>
+      <div class="car-specs">1.5 л · робот · передний привод</div>
+      <div class="car-price">от 2 119 000 ₽</div>
+      <div class="car-credit">платёж посчитаю по-честному</div>
+      <button class="btn btn-primary" onclick="scrollToQuiz()">Хочу расчёт</button>
+    </div>
+  </article>
 
-          <article class="car-card">
-            <div class="car-image blue">Фото Geely Cityray</div>
-            <div class="car-body">
-              <div class="car-brand">Geely</div>
-              <div class="car-name">Cityray</div>
-              <div class="car-specs">1.5T · робот · передний привод</div>
-              <div class="car-price">от 2 479 000 ₽</div>
-              <div class="car-credit">проверю наличие и условия</div>
-              <button class="btn btn-primary" onclick="scrollToQuiz()">Хочу расчёт</button>
-            </div>
-          </article>
+  <article class="car-card">
+    <div class="car-image">
+      <img src="./assets/cars/geely-cityray.jpg" alt="Geely Cityray" loading="lazy">
+    </div>
+    <div class="car-body">
+      <div class="car-brand">Geely</div>
+      <div class="car-name">Cityray</div>
+      <div class="car-specs">1.5T · робот · передний привод</div>
+      <div class="car-price">от 2 479 000 ₽</div>
+      <div class="car-credit">проверю наличие и условия</div>
+      <button class="btn btn-primary" onclick="scrollToQuiz()">Хочу расчёт</button>
+    </div>
+  </article>
 
-          <article class="car-card">
-            <div class="car-image green">Фото Geely Monjaro</div>
-            <div class="car-body">
-              <div class="car-brand">Geely</div>
-              <div class="car-name">Monjaro</div>
-              <div class="car-specs">2.0T · АКПП · полный привод</div>
-              <div class="car-price">от 4 249 000 ₽</div>
-              <div class="car-credit">сравню комплектации и выгоды</div>
-              <button class="btn btn-primary" onclick="scrollToQuiz()">Хочу расчёт</button>
-            </div>
-          </article>
+  <article class="car-card">
+    <div class="car-image">
+      <img src="./assets/cars/geely-monjaro.jpg" alt="Geely Monjaro" loading="lazy">
+    </div>
+    <div class="car-body">
+      <div class="car-brand">Geely</div>
+      <div class="car-name">Monjaro</div>
+      <div class="car-specs">2.0T · АКПП · полный привод</div>
+      <div class="car-price">от 4 249 000 ₽</div>
+      <div class="car-credit">сравню комплектации и выгоды</div>
+      <button class="btn btn-primary" onclick="scrollToQuiz()">Хочу расчёт</button>
+    </div>
+  </article>
 
-          <article class="car-card">
-            <div class="car-image orange">Фото Omoda C5</div>
-            <div class="car-body">
-              <div class="car-brand">Omoda</div>
-              <div class="car-name">C5</div>
-              <div class="car-specs">1.5T · робот · передний привод</div>
-              <div class="car-price">от 2 249 000 ₽</div>
-              <div class="car-credit">разберу кредит и допы</div>
-              <button class="btn btn-primary" onclick="scrollToQuiz()">Хочу расчёт</button>
-            </div>
-          </article>
+  <article class="car-card">
+    <div class="car-image">
+      <img src="./assets/cars/omoda-c5.jpg" alt="Omoda C5" loading="lazy">
+    </div>
+    <div class="car-body">
+      <div class="car-brand">Omoda</div>
+      <div class="car-name">C5</div>
+      <div class="car-specs">1.5T · робот · передний привод</div>
+      <div class="car-price">от 2 249 000 ₽</div>
+      <div class="car-credit">разберу кредит и допы</div>
+      <button class="btn btn-primary" onclick="scrollToQuiz()">Хочу расчёт</button>
+    </div>
+  </article>
 
-          <article class="car-card">
-            <div class="car-image blue">Фото Jaecoo J6</div>
-            <div class="car-body">
-              <div class="car-brand">Jaecoo</div>
-              <div class="car-name">J6</div>
-              <div class="car-specs">1.6T · робот · передний привод</div>
-              <div class="car-price">от 2 190 000 ₽</div>
-              <div class="car-credit">помогу выбить нормальные условия</div>
-              <button class="btn btn-primary" onclick="scrollToQuiz()">Хочу расчёт</button>
-            </div>
-          </article>
+  <article class="car-card">
+    <div class="car-image">
+      <img src="./assets/cars/jaecoo-j6.jpg" alt="Jaecoo J6" loading="lazy">
+    </div>
+    <div class="car-body">
+      <div class="car-brand">Jaecoo</div>
+      <div class="car-name">J6</div>
+      <div class="car-specs">1.6T · робот · передний привод</div>
+      <div class="car-price">от 2 190 000 ₽</div>
+      <div class="car-credit">помогу выбить нормальные условия</div>
+      <button class="btn btn-primary" onclick="scrollToQuiz()">Хочу расчёт</button>
+    </div>
+  </article>
 
-          <article class="car-card">
-            <div class="car-image green">Фото Jaecoo J8</div>
-            <div class="car-body">
-              <div class="car-brand">Jaecoo</div>
-              <div class="car-name">J8</div>
-              <div class="car-specs">2.0T · АКПП · полный привод</div>
-              <div class="car-price">от 3 700 000 ₽</div>
-              <div class="car-credit">проверю сделку до подписи</div>
-              <button class="btn btn-primary" onclick="scrollToQuiz()">Хочу расчёт</button>
-            </div>
-          </article>
-        </div>
-      </div>
+  <article class="car-card">
+    <div class="car-image">
+      <img src="./assets/cars/jaecoo-j8.jpg" alt="Jaecoo J8" loading="lazy">
+    </div>
+    <div class="car-body">
+      <div class="car-brand">Jaecoo</div>
+      <div class="car-name">J8</div>
+      <div class="car-specs">2.0T · АКПП · полный привод</div>
+      <div class="car-price">от 3 700 000 ₽</div>
+      <div class="car-credit">проверю сделку до подписи</div>
+      <button class="btn btn-primary" onclick="scrollToQuiz()">Хочу расчёт</button>
+    </div>
+  </article>
+</div>
     </section>
 
     <section class="about" id="about">
