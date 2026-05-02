@@ -8,141 +8,983 @@
   <meta name="description" content="Малышев — персональный менеджер по Belgee, Geely, Omoda и Jaecoo в Санкт-Петербурге. Подбор авто, расчёт кредита, трейд-ин и сопровождение сделки в другом дилерском центре.">
 
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #09090b; color: #fff; line-height: 1.5; }
-    a { color: inherit; text-decoration: none; }
-    .container { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    .header { position: sticky; top: 0; z-index: 10; background: rgba(9, 9, 11, 0.95); backdrop-filter: blur(16px); border-bottom: 1px solid #25252b; }
-    .header-inner { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-    .logo { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 800; }
-    .logo-mark { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, #ff7a1a, #ffb547); color: #000; display: grid; place-items: center; font-weight: 900; }
-    .nav { display: flex; gap: 24px; color: #a1a1aa; font-size: 15px; }
-    .nav a:hover { color: #fff; }
-    .header-phone { font-weight: 700; white-space: nowrap; }
+    html {
+      scroll-behavior: smooth;
+    }
 
-    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; border-radius: 12px; border: none; cursor: pointer; font-size: 15px; font-weight: 800; transition: 0.2s; font-family: inherit; }
-    .btn:active { transform: scale(0.98); }
-    .btn-primary { background: #ff7a1a; color: #09090b; box-shadow: 0 12px 30px rgba(255, 122, 26, 0.25); }
-    .btn-primary:hover { background: #ffb547; }
-    .btn-outline { background: transparent; color: #fff; border: 1px solid #34343b; }
-    .btn-outline:hover { border-color: #fff; background: rgba(255, 255, 255, 0.05); }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      background: #09090b;
+      color: #ffffff;
+      line-height: 1.5;
+    }
 
-    .hero { padding: 76px 0; background: radial-gradient(circle at 75% 10%, rgba(255, 122, 26, 0.18), transparent 35%), radial-gradient(circle at 10% 80%, rgba(255, 181, 71, 0.08), transparent 35%); }
-    .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; }
-    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: rgba(255, 122, 26, 0.12); border: 1px solid rgba(255, 122, 26, 0.35); color: #ffb547; font-size: 13px; font-weight: 700; margin-bottom: 22px; }
-    .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: #ff7a1a; }
-    h1 { font-size: clamp(40px, 6vw, 72px); line-height: 0.98; letter-spacing: -0.05em; margin-bottom: 24px; }
-    .accent { color: #ff7a1a; }
-    .hero-text { max-width: 580px; font-size: 19px; color: #a1a1aa; margin-bottom: 32px; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 36px; }
-    .stats { display: grid; grid-template-columns: repeat(3, 1fr); max-width: 600px; gap: 20px; border-top: 1px solid #25252b; padding-top: 28px; }
-    .stat-number { font-size: 30px; font-weight: 900; }
-    .stat-text { color: #a1a1aa; font-size: 13px; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-    .quiz { background: #15151a; border: 1px solid #2a2a32; border-radius: 28px; padding: 30px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4); }
-    .quiz-title { font-size: 24px; font-weight: 900; margin-bottom: 8px; }
-    .quiz-subtitle { color: #a1a1aa; margin-bottom: 22px; font-size: 14px; }
-    .progress { height: 5px; background: #24242b; border-radius: 99px; overflow: hidden; margin-bottom: 24px; }
-    .progress-line { width: 20%; height: 100%; background: linear-gradient(90deg, #ff7a1a, #ffb547); transition: width 0.3s ease; }
-    .quiz-question { font-size: 18px; font-weight: 800; margin-bottom: 14px; }
-    .quiz-options { display: grid; gap: 10px; margin-bottom: 20px; }
-    .quiz-option { padding: 14px 16px; border-radius: 12px; background: #1d1d23; border: 1px solid #2d2d35; cursor: pointer; font-weight: 700; transition: 0.15s; text-align: left; font-size: 15px; color: #fff; font-family: inherit; }
-    .quiz-option:hover, .quiz-option.active { border-color: #ff7a1a; background: rgba(255, 122, 26, 0.12); }
-    .quiz-input { width: 100%; height: 48px; padding: 0 14px; border-radius: 12px; border: 1px solid #2d2d35; background: #1d1d23; color: #fff; font-size: 15px; margin-bottom: 10px; font-family: inherit; }
-    .quiz-input:focus { outline: none; border-color: #ff7a1a; }
-    .quiz-pane { min-height: 230px; }
-    .quiz-actions { display: flex; gap: 10px; }
-    .quiz-actions .btn { flex: 1; }
-    .error-message { color: #ff6b6b; font-size: 13px; margin-top: 4px; margin-bottom: 8px; display: none; }
-    .error-message.show { display: block; }
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
 
-    section { padding: 80px 0; }
-    .section-head { max-width: 720px; margin-bottom: 42px; }
-    .kicker { color: #ff7a1a; text-transform: uppercase; letter-spacing: 0.12em; font-size: 13px; font-weight: 900; margin-bottom: 12px; }
-    h2 { font-size: clamp(32px, 4vw, 52px); line-height: 1.08; letter-spacing: -0.04em; margin-bottom: 14px; }
-    .section-text { color: #a1a1aa; font-size: 18px; }
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(9, 9, 11, 0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid #25252b;
+    }
 
-    .trust { background: #111115; border-top: 1px solid #25252b; border-bottom: 1px solid #25252b; padding: 32px 0; }
-    .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    .trust-card { background: #17171c; border: 1px solid #2a2a32; border-radius: 18px; padding: 22px; }
-    .trust-icon { color: #ff7a1a; font-size: 28px; font-weight: 900; margin-bottom: 10px; }
-    .trust-title { font-weight: 900; margin-bottom: 4px; font-size: 16px; }
-    .trust-text { color: #a1a1aa; font-size: 14px; }
+    .header-inner {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
 
-    .catalog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .car-card { background: #15151a; border: 1px solid #2a2a32; border-radius: 24px; overflow: hidden; transition: 0.2s; }
-    .car-card:hover { transform: translateY(-4px); border-color: #ff7a1a; }
-    .car-image { width: 100%; aspect-ratio: 16 / 10; background: linear-gradient(135deg, #292933, #17171c); overflow: hidden; position: relative; }
-    .car-image img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; transition: transform 0.3s ease; }
-    .car-card:hover .car-image img { transform: scale(1.04); }
-    .car-body { padding: 22px; }
-    .car-brand { color: #a1a1aa; text-transform: uppercase; font-size: 12px; font-weight: 900; letter-spacing: 0.1em; margin-bottom: 4px; }
-    .car-name { font-size: 23px; font-weight: 900; margin-bottom: 10px; }
-    .car-specs { color: #a1a1aa; font-size: 14px; margin-bottom: 18px; }
-    .car-price { font-size: 26px; font-weight: 900; margin-bottom: 4px; }
-    .car-credit { color: #ffb547; font-size: 14px; font-weight: 700; margin-bottom: 18px; }
-    .car-card .btn { width: 100%; }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+    }
 
-    .about { background: #111115; }
-    .about-grid { display: grid; grid-template-columns: minmax(320px, 520px) minmax(0, 1fr); gap: 48px; align-items: center; }
-    .about-photo { width: 100%; max-width: 520px; aspect-ratio: 4 / 5; border-radius: 28px; background: linear-gradient(135deg, #262631, #141419); border: 1px solid #2a2a32; overflow: hidden; }
-    .about-photo img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: 42% 28%; }
-    .about-text p { color: #a1a1aa; margin-bottom: 16px; font-size: 17px; }
-    .about-text strong { color: #fff; }
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #ff7a1a, #ffb547);
+      color: #000000;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
 
-    .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    .step-card { background: #15151a; border: 1px solid #2a2a32; border-radius: 24px; padding: 26px; }
-    .step-number { font-size: 42px; font-weight: 900; color: #ff7a1a; margin-bottom: 10px; }
-    .step-title { font-size: 18px; font-weight: 900; margin-bottom: 8px; }
-    .step-text { color: #a1a1aa; font-size: 14px; }
+    .nav {
+      display: flex;
+      gap: 24px;
+      color: #a1a1aa;
+      font-size: 15px;
+    }
 
-    .faq-list { max-width: 860px; display: grid; gap: 12px; }
-    .faq-item { background: #15151a; border: 1px solid #2a2a32; border-radius: 18px; overflow: hidden; }
-    .faq-question { width: 100%; padding: 22px; text-align: left; color: #fff; background: transparent; border: none; font-size: 17px; font-weight: 900; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; font-family: inherit; }
-    .faq-question:hover { color: #ffb547; }
-    .faq-question span:last-child { flex-shrink: 0; transition: transform 0.2s; font-size: 24px; line-height: 1; }
-    .faq-item.open .faq-question span:last-child { transform: rotate(45deg); }
-    .faq-answer { display: none; padding: 0 22px 22px; color: #a1a1aa; font-size: 16px; line-height: 1.6; }
-    .faq-item.open .faq-answer { display: block; }
+    .nav a {
+      transition: color 0.2s;
+    }
 
-    .cta-box { background: linear-gradient(135deg, #ff7a1a, #ffb547); color: #09090b; border-radius: 30px; padding: 52px; display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 24px; align-items: center; }
-    .cta-box h2 { color: #09090b; }
-    .cta-box p { color: rgba(0, 0, 0, 0.7); font-size: 18px; }
-    .cta-actions { display: grid; gap: 10px; }
-    .cta-box .btn-primary { background: #09090b; color: #fff; box-shadow: none; }
-    .cta-box .btn-outline { border-color: #09090b; color: #09090b; }
+    .nav a:hover {
+      color: #ffffff;
+    }
 
-    .footer { padding: 48px 0 28px; border-top: 1px solid #25252b; color: #a1a1aa; }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; margin-bottom: 28px; }
-    .footer h3, .footer h4 { color: #fff; margin-bottom: 12px; }
-    .footer p { font-size: 14px; }
-    .footer a { display: block; margin-bottom: 7px; color: #a1a1aa; }
-    .footer a:hover { color: #fff; }
-    .footer-bottom { border-top: 1px solid #25252b; padding-top: 20px; font-size: 13px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .header-phone {
+      font-weight: 700;
+      white-space: nowrap;
+    }
 
-    .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(120px); background: #ff7a1a; color: #09090b; padding: 14px 24px; border-radius: 999px; font-weight: 900; opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 100; }
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 800;
+      transition: 0.2s;
+      font-family: inherit;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: #ff7a1a;
+      color: #09090b;
+      box-shadow: 0 12px 30px rgba(255, 122, 26, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: #ffb547;
+      box-shadow: 0 16px 40px rgba(255, 122, 26, 0.35);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #ffffff;
+      border: 1px solid #34343b;
+    }
+
+    .btn-outline:hover {
+      border-color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .hero {
+      padding: 76px 0;
+      background:
+        radial-gradient(circle at 75% 10%, rgba(255, 122, 26, 0.18), transparent 35%),
+        radial-gradient(circle at 10% 80%, rgba(255, 181, 71, 0.08), transparent 35%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 122, 26, 0.12);
+      border: 1px solid rgba(255, 122, 26, 0.35);
+      color: #ffb547;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ff7a1a;
+      flex-shrink: 0;
+    }
+
+    h1 {
+      font-size: clamp(40px, 6vw, 72px);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      margin-bottom: 24px;
+    }
+
+    .accent {
+      color: #ff7a1a;
+    }
+
+    .hero-text {
+      max-width: 580px;
+      font-size: 19px;
+      color: #a1a1aa;
+      margin-bottom: 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 600px;
+      gap: 20px;
+      border-top: 1px solid #25252b;
+      padding-top: 28px;
+    }
+
+    .stat-number {
+      font-size: 30px;
+      font-weight: 900;
+      color: #ffffff;
+    }
+
+    .stat-text {
+      color: #a1a1aa;
+      font-size: 13px;
+    }
+
+    .quiz {
+      background: #15151a;
+      border: 1px solid #2a2a32;
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+    }
+
+    .quiz-title {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .quiz-subtitle {
+      color: #a1a1aa;
+      margin-bottom: 22px;
+      font-size: 14px;
+    }
+
+    .progress {
+      height: 5px;
+      background: #24242b;
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .progress-line {
+      width: 20%;
+      height: 100%;
+      background: linear-gradient(90deg, #ff7a1a, #ffb547);
+      transition: width 0.3s ease;
+    }
+
+    .quiz-question {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .quiz-option {
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: #1d1d23;
+      border: 1px solid #2d2d35;
+      cursor: pointer;
+      font-weight: 700;
+      transition: 0.15s;
+      text-align: left;
+      font-size: 15px;
+      color: #ffffff;
+      font-family: inherit;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .quiz-option:hover {
+      border-color: #ff7a1a;
+      background: rgba(255, 122, 26, 0.08);
+    }
+
+    .quiz-option.active {
+      border-color: #ff7a1a;
+      background: rgba(255, 122, 26, 0.12);
+    }
+
+    .quiz-input {
+      width: 100%;
+      height: 48px;
+      padding: 0 14px;
+      border-radius: 12px;
+      border: 1px solid #2d2d35;
+      background: #1d1d23;
+      color: #ffffff;
+      font-size: 15px;
+      margin-bottom: 10px;
+      font-family: inherit;
+    }
+
+    .quiz-input::placeholder {
+      color: #6b6b75;
+    }
+
+    .quiz-input:focus {
+      outline: none;
+      border-color: #ff7a1a;
+      background: rgba(255, 122, 26, 0.05);
+    }
+
+    .quiz-pane {
+      min-height: 230px;
+    }
+
+    .quiz-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .quiz-actions .btn {
+      flex: 1;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 42px;
+    }
+
+    .kicker {
+      color: #ff7a1a;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      margin-bottom: 14px;
+    }
+
+    .section-text {
+      color: #a1a1aa;
+      font-size: 18px;
+    }
+
+    .trust {
+      background: #111115;
+      border-top: 1px solid #25252b;
+      border-bottom: 1px solid #25252b;
+      padding: 32px 0;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .trust-card {
+      background: #17171c;
+      border: 1px solid #2a2a32;
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .trust-icon {
+      color: #ff7a1a;
+      font-size: 28px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .trust-title {
+      font-weight: 900;
+      margin-bottom: 4px;
+      font-size: 16px;
+    }
+
+    .trust-text {
+      color: #a1a1aa;
+      font-size: 14px;
+    }
+
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .car-card {
+      background: #15151a;
+      border: 1px solid #2a2a32;
+      border-radius: 24px;
+      overflow: hidden;
+      transition: 0.2s;
+    }
+
+    .car-card:hover {
+      transform: translateY(-4px);
+      border-color: #ff7a1a;
+    }
+
+    .car-image {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: linear-gradient(135deg, #292933, #17171c);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .car-image img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.3s ease;
+    }
+
+    .car-card:hover .car-image img {
+      transform: scale(1.04);
+    }
+
+    .car-body {
+      padding: 22px;
+    }
+
+    .car-brand {
+      color: #a1a1aa;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+
+    .car-name {
+      font-size: 23px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .car-specs {
+      color: #a1a1aa;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .car-price {
+      font-size: 26px;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .car-credit {
+      color: #ffb547;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .car-card .btn {
+      width: 100%;
+    }
+
+    .about {
+      background: #111115;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(320px, 520px) minmax(0, 1fr);
+      gap: 48px;
+      align-items: center;
+    }
+
+    .about-photo {
+      width: 100%;
+      max-width: 520px;
+      aspect-ratio: 4 / 5;
+      border-radius: 28px;
+      background: linear-gradient(135deg, #262631, #141419);
+      border: 1px solid #2a2a32;
+      overflow: hidden;
+      position: relative;
+      justify-self: start;
+    }
+
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: 42% 28%;
+    }
+
+    .about-text p {
+      color: #a1a1aa;
+      margin-bottom: 16px;
+      font-size: 17px;
+    }
+
+    .about-text strong {
+      color: #ffffff;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .step-card {
+      background: #15151a;
+      border: 1px solid #2a2a32;
+      border-radius: 24px;
+      padding: 26px;
+    }
+
+    .step-number {
+      font-size: 42px;
+      font-weight: 900;
+      color: #ff7a1a;
+      margin-bottom: 10px;
+    }
+
+    .step-title {
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .step-text {
+      color: #a1a1aa;
+      font-size: 14px;
+    }
+
+    .faq-list {
+      max-width: 860px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .faq-item {
+      background: #15151a;
+      border: 1px solid #2a2a32;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 22px;
+      text-align: left;
+      color: #ffffff;
+      background: transparent;
+      border: none;
+      font-size: 17px;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      font-family: inherit;
+      transition: 0.2s;
+    }
+
+    .faq-question:hover {
+      color: #ffb547;
+    }
+
+    .faq-question span:first-child {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .faq-question span:last-child {
+      flex-shrink: 0;
+      transition: transform 0.2s;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .faq-item.open .faq-question span:last-child {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 22px 22px;
+      color: #a1a1aa;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, #ff7a1a, #ffb547);
+      color: #09090b;
+      border-radius: 30px;
+      padding: 52px;
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .cta-box h2 {
+      color: #09090b;
+    }
+
+    .cta-box p {
+      color: rgba(0, 0, 0, 0.7);
+      font-size: 18px;
+    }
+
+    .cta-actions {
+      display: grid;
+      gap: 10px;
+    }
+
+    .cta-box .btn-primary {
+      background: #09090b;
+      color: #ffffff;
+      box-shadow: none;
+    }
+
+    .cta-box .btn-primary:hover {
+      background: #1a1a1f;
+    }
+
+    .cta-box .btn-outline {
+      border-color: #09090b;
+      color: #09090b;
+    }
+
+    .cta-box .btn-outline:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .footer {
+      padding: 48px 0 28px;
+      border-top: 1px solid #25252b;
+      color: #a1a1aa;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 28px;
+    }
+
+    .footer h3,
+    .footer h4 {
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .footer p {
+      font-size: 14px;
+    }
+
+    .footer a {
+      display: block;
+      margin-bottom: 7px;
+      color: #a1a1aa;
+      transition: color 0.2s;
+    }
+
+    .footer a:hover {
+      color: #ffffff;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #25252b;
+      padding-top: 20px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%) translateY(120px);
+      background: #ff7a1a;
+      color: #09090b;
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-weight: 900;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 100;
+      box-shadow: 0 12px 40px rgba(255, 122, 26, 0.3);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    .error-message {
+      color: #ff6b6b;
+      font-size: 13px;
+      margin-top: 4px;
+      margin-bottom: 8px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
 
     @media (max-width: 960px) {
-      .hero-grid, .about-grid, .cta-box { grid-template-columns: 1fr; }
-      .catalog-grid { grid-template-columns: repeat(2, 1fr); }
-      .trust-grid, .steps-grid { grid-template-columns: repeat(2, 1fr); }
-      .nav { display: none; }
-      .footer-grid { grid-template-columns: 1fr; }
-      .about-photo { justify-self: center; }
+      .hero-grid,
+      .about-grid,
+      .cta-box {
+        grid-template-columns: 1fr;
+      }
+
+      .catalog-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .trust-grid,
+      .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-photo {
+        max-width: 520px;
+        justify-self: center;
+      }
     }
 
     @media (max-width: 640px) {
-      .header-phone { display: none; }
-      .hero { padding: 46px 0; }
-      .stats, .catalog-grid, .trust-grid, .steps-grid { grid-template-columns: 1fr; }
-      .cta-box { padding: 32px 24px; }
-      .hero-actions, .quiz-actions { flex-direction: column; }
-      .btn { width: 100%; }
-      section { padding: 60px 0; }
-      .about-photo { max-width: 100%; border-radius:          <p class="section-text">
+      .header-phone {
+        display: none;
+      }
+
+      .hero {
+        padding: 46px 0;
+      }
+
+      .stats,
+      .catalog-grid,
+      .trust-grid,
+      .steps-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-box {
+        padding: 32px 24px;
+      }
+
+      .hero-actions,
+      .quiz-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      section {
+        padding: 60px 0;
+      }
+
+      .about-photo {
+        max-width: 100%;
+        border-radius: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">
+        <span class="logo-mark">М</span>
+        Малышев
+      </a>
+
+      <nav class="nav">
+        <a href="#catalog">Модели</a>
+        <a href="#about">Обо мне</a>
+        <a href="#steps">Сделка</a>
+        <a href="#faq">Вопросы</a>
+      </nav>
+
+      <a class="header-phone" href="tel:+79939729008">+7 993 972-90-08</a>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            Санкт-Петербург и Ленинградская область
+          </div>
+
+          <h1>
+            Купим новый <span class="accent">Belgee, Geely, Omoda или Jaecoo</span> без дилерского цирка
+          </h1>
+
+          <p class="hero-text">
+            Я знаю, как устроена продажа автомобиля изнутри: где честная выгода, где красивый дым,
+            а где в договор аккуратно кладут лишние сто тысяч и улыбаются так, будто это комплимент.
+            Подберу авто, рассчитаю кредит, разберу трейд-ин и, если нужно, сопровожу сделку в другом дилерском центре.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="scrollToQuiz()">Разобрать мою сделку</button>
+            <a class="btn btn-outline" href="tel:+79939729008">Позвонить</a>
+          </div>
+
+          <div class="stats">
+            <div>
+              <div class="stat-number">1 заявка</div>
+              <div class="stat-text">и я уже в вашей истории покупки</div>
+            </div>
+            <div>
+              <div class="stat-number">от 50 000 ₽</div>
+              <div class="stat-text">можно сберечь на переговорах</div>
+            </div>
+            <div>
+              <div class="stat-number">1 день</div>
+              <div class="stat-text">на первый понятный расчёт</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiz" id="quiz">
+          <div class="quiz-title">Заявка без лишней драмы</div>
+          <div class="quiz-subtitle" id="quizStep">Шаг 1 из 5</div>
+
+          <div class="progress">
+            <div class="progress-line" id="progressLine"></div>
+          </div>
+
+          <div class="quiz-pane" data-step="1">
+            <div class="quiz-question">Что нужно сделать?</div>
+            <div class="quiz-options">
+              <button type="button" class="quiz-option" data-key="service" data-value="Подобрать и купить новый автомобиль">Подобрать и купить новый автомобиль</button>
+              <button type="button" class="quiz-option" data-key="service" data-value="Сопроводить сделку в другом дилерском центре">Сопроводить сделку в другом дилерском центре</button>
+              <button type="button" class="quiz-option" data-key="service" data-value="Проверить предложение дилера">Проверить предложение дилера</button>
+              <button type="button" class="quiz-option" data-key="service" data-value="Разобрать кредит, трейд-ин и допы">Разобрать кредит, трейд-ин и допы</button>
+            </div>
+          </div>
+
+          <div class="quiz-pane" data-step="2" hidden>
+            <div class="quiz-question">Какой бренд смотрите?</div>
+            <div class="quiz-options">
+              <button type="button" class="quiz-option" data-key="brand" data-value="Belgee">Belgee</button>
+              <button type="button" class="quiz-option" data-key="brand" data-value="Geely">Geely</button>
+              <button type="button" class="quiz-option" data-key="brand" data-value="Omoda">Omoda</button>
+              <button type="button" class="quiz-option" data-key="brand" data-value="Jaecoo">Jaecoo</button>
+              <button type="button" class="quiz-option" data-key="brand" data-value="Пока не выбрал">Пока не выбрал — нужна консультация</button>
+            </div>
+          </div>
+
+          <div class="quiz-pane" data-step="3" hidden>
+            <div class="quiz-question">Какой бюджет держим в голове?</div>
+            <div class="quiz-options">
+              <button type="button" class="quiz-option" data-key="budget" data-value="до 2 млн ₽">до 2 млн ₽</button>
+              <button type="button" class="quiz-option" data-key="budget" data-value="2–3 млн ₽">2–3 млн ₽</button>
+              <button type="button" class="quiz-option" data-key="budget" data-value="3–4 млн ₽">3–4 млн ₽</button>
+              <button type="button" class="quiz-option" data-key="budget" data-value="свыше 4 млн ₽">свыше 4 млн ₽</button>
+              <button type="button" class="quiz-option" data-key="budget" data-value="Нужен расчёт">Пока не знаю — покажите реальную картину</button>
+            </div>
+          </div>
+
+          <div class="quiz-pane" data-step="4" hidden>
+            <div class="quiz-question">Как планируете платить?</div>
+            <div class="quiz-options">
+              <button type="button" class="quiz-option" data-key="payment" data-value="Наличные">Наличными</button>
+              <button type="button" class="quiz-option" data-key="payment" data-value="Кредит">В кредит</button>
+              <button type="button" class="quiz-option" data-key="payment" data-value="Трейд-ин">Через трейд-ин</button>
+              <button type="button" class="quiz-option" data-key="payment" data-value="Кредит + трейд-ин">Кредит + трейд-ин</button>
+              <button type="button" class="quiz-option" data-key="payment" data-value="Нужно сравнить варианты">Нужно сравнить варианты</button>
+            </div>
+          </div>
+
+          <div class="quiz-pane" data-step="5" hidden>
+            <div class="quiz-question">Куда мне выйти на связь?</div>
+
+            <input
+              class="quiz-input"
+              id="nameInput"
+              type="text"
+              placeholder="Ваше имя"
+              autocomplete="name"
+              aria-label="Ваше имя"
+              required
+            >
+            <div class="error-message" id="nameError">Введите корректное имя</div>
+
+            <input
+              class="quiz-input"
+              id="phoneInput"
+              type="tel"
+              placeholder="+7 (999) 999-99-99"
+              autocomplete="tel"
+              aria-label="Номер телефона"
+              inputmode="tel"
+              required
+            >
+            <div class="error-message" id="phoneError">Введите корректный номер телефона</div>
+          </div>
+
+          <div class="quiz-actions">
+            <button class="btn btn-outline" id="backBtn" type="button" hidden aria-label="Предыдущий шаг">Назад</button>
+            <button class="btn btn-primary" id="nextBtn" type="button">Далее</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust">
+      <div class="container trust-grid">
+        <div class="trust-card">
+          <div class="trust-icon" aria-hidden="true">✓</div>
+          <div class="trust-title">Новые автомобили</div>
+          <div class="trust-text">Belgee, Geely, Omoda и Jaecoo с гарантией, а не легенды с парковки.</div>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon" aria-hidden="true">₽</div>
+          <div class="trust-title">Переговоры за вас</div>
+          <div class="trust-text">Скидки, допы, подарки и финальная цена — всё вытаскиваем на свет.</div>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon" aria-hidden="true">%</div>
+          <div class="trust-title">Кредит без тумана</div>
+          <div class="trust-text">Смотрим не на красивую ставку, а на полную стоимость сделки.</div>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon" aria-hidden="true">↔</div>
+          <div class="trust-title">Сопровождение в ДЦ</div>
+          <div class="trust-text">Пойду с вами к другому дилеру и помогу не подписать лишнего.</div>
+        </div>
+      </div>
+    </div>
+
+    <section id="catalog">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Модели</div>
+          <h2>Популярные варианты 2024–2025</h2>
+          <p class="section-text">
             Цены ориентировочные. Реальная сделка начинается не с прайса, а с наличия, кредита,
             трейд-ина, допов и того, насколько дилер сегодня готов разговаривать по-взрослому.
           </p>
@@ -277,7 +1119,345 @@
           <h2>Как это работает — без театра и лишних аплодисментов</h2>
           <p class="section-text">
             Оставляете заявку, я разбираю ситуацию и предлагаю понятный маршрут:
-            покупка у меня, проверка чужого backBtn.addEventListener('click', function() {
+            покупка у меня, проверка чужого предложения или сопровождение в другом дилерском центре.
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">01</div>
+            <div class="step-title">Вы оставляете заявку</div>
+            <div class="step-text">Марка, бюджет, способ оплаты и телефон. Без романа на три тома.</div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">02</div>
+            <div class="step-title">Я разбираю вводные</div>
+            <div class="step-text">Смотрю наличие, цены, кредит, трейд-ин, допы и слабые места предложения.</div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">03</div>
+            <div class="step-title">Вы получаете план</div>
+            <div class="step-text">Показываю, где брать авто, о чём торговаться и что не подписывать вслепую.</div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">04</div>
+            <div class="step-title">Доводим до сделки</div>
+            <div class="step-text">Покупка, трейд-ин, кредит или сопровождение у другого дилера — я рядом до ключей.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">FAQ</div>
+          <h2>Вопросы, которые лучше задать до кассы</h2>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>Вы менеджер дилерского центра?</span>
+              <span aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              Да, я работаю в автомобильных продажах и специализируюсь на Belgee, Geely, Omoda и Jaecoo.
+              Если автомобиль можно выгодно купить через меня — отлично. Если вы уже нашли вариант в другом дилерском центре,
+              я могу выступить вашим консультантом и проверить сделку со стороны покупателя.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>Вы можете сопровождать сделку в другом дилерском центре?</span>
+              <span aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              Да. Это отдельная услуга. Я могу разобрать предложение, проверить договор, кредит, трейд-ин,
+              страховки, допоборудование и финальную стоимость. Иногда один спокойный взгляд со стороны экономит больше,
+              чем самый громкий «подарок от салона».
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>Сколько стоит сопровождение сделки?</span>
+              <span aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              Стоимость зависит от задачи: просто проверить предложение, провести переговоры или сопровождать сделку до выдачи автомобиля.
+              Оставьте заявку — я оценю объём работы и назову цену заранее, без сюрпризов в финале.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>Поможете с кредитом и трейд-ином?</span>
+              <span aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              Да. По кредиту смотрю не только ставку, а полную стоимость: страховки, комиссии, обязательные услуги и переплату.
+              По трейд-ину помогу понять реальную цену вашего автомобиля и не отдать его дешевле просто потому, что «так считает программа».
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>Консультация по покупке у вас платная?</span>
+              <span aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              Если вы покупаете автомобиль через меня, первичная консультация и подбор для вас бесплатны.
+              Если задача — сопровождение покупки в другом дилерском центре или независимая проверка чужого предложения,
+              это отдельная платная услуга.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>Есть предложение от дилера? Давайте посмотрим, что там под капотом</h2>
+            <p>
+              Оставьте заявку — я свяжусь, разберу условия и скажу человеческим языком:
+              брать, торговаться или красиво уходить.
+            </p>
+          </div>
+
+          <div class="cta-actions">
+            <button class="btn btn-primary" onclick="scrollToQuiz()">Оставить заявку</button>
+            <a class="btn btn-outline" href="tel:+79939729008">Позвонить</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>Малышев</h3>
+          <p>
+            Личный менеджер по Belgee, Geely, Omoda и Jaecoo в Санкт-Петербурге.
+            Подбор, покупка, кредит, трейд-ин и сопровождение сделок в других дилерских центрах.
+          </p>
+        </div>
+
+        <div>
+          <h4>Контакты</h4>
+          <a href="tel:+79939729008">+7 993 972-90-08</a>
+          <a href="tel:+79112109008">+7 911 210-90-08</a>
+          <a href="#">Санкт-Петербург</a>
+        </div>
+
+        <div>
+          <h4>Разделы</h4>
+          <a href="#catalog">Модели</a>
+          <a href="#about">Обо мне</a>
+          <a href="#steps">Как проходит сделка</a>
+          <a href="#faq">Частые вопросы</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2025 Малышев</div>
+        <div><a href="#">Политика конфиденциальности</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">
+    ✓ Заявка собрана. Сейчас отправим её мне.
+  </div>
+
+  <script>
+    const LEAD_ENDPOINT = '';
+    const WHATSAPP_PHONE = '79939729008';
+
+    const quizData = {
+      service: '',
+      brand: '',
+      budget: '',
+      payment: '',
+      name: '',
+      phone: ''
+    };
+
+    let currentStep = 1;
+    const totalSteps = 5;
+
+    const panes = document.querySelectorAll('.quiz-pane');
+    const progressLine = document.getElementById('progressLine');
+    const quizStep = document.getElementById('quizStep');
+    const nextBtn = document.getElementById('nextBtn');
+    const backBtn = document.getElementById('backBtn');
+
+    function updateQuiz() {
+      panes.forEach((pane) => {
+        pane.hidden = Number(pane.dataset.step) !== currentStep;
+      });
+
+      progressLine.style.width = (currentStep / totalSteps * 100) + '%';
+      quizStep.textContent = 'Шаг ' + currentStep + ' из ' + totalSteps;
+      backBtn.hidden = currentStep === 1;
+      nextBtn.textContent = currentStep === totalSteps ? 'Отправить заявку' : 'Далее';
+
+      document.querySelectorAll('.error-message').forEach((el) => {
+        el.classList.remove('show');
+      });
+    }
+
+    document.querySelectorAll('.quiz-option').forEach((option) => {
+      option.addEventListener('click', function() {
+        const parent = option.closest('.quiz-pane');
+
+        parent.querySelectorAll('.quiz-option').forEach((item) => {
+          item.classList.remove('active');
+        });
+
+        option.classList.add('active');
+        quizData[option.dataset.key] = option.dataset.value;
+      });
+    });
+
+    function validatePhone(phone) {
+      const normalizedPhone = phone.replace(/[^\d+]/g, '');
+      const phoneRegex = /^\+?[7-8]?\d{10}$/;
+      return phoneRegex.test(normalizedPhone);
+    }
+
+    function validateName(name) {
+      return name.trim().length >= 2 && /^[а-яА-ЯёЁa-zA-Z\s'-]+$/.test(name);
+    }
+
+    function buildLeadMessage() {
+      return [
+        '🔥 Новая заявка с сайта Малышев',
+        '',
+        'Услуга: ' + quizData.service,
+        'Бренд: ' + quizData.brand,
+        'Бюджет: ' + quizData.budget,
+        'Оплата: ' + quizData.payment,
+        '',
+        'Имя: ' + quizData.name,
+        'Телефон: ' + quizData.phone,
+        '',
+        'Источник: сайт'
+      ].join('\n');
+    }
+
+    async function sendLead() {
+      const message = buildLeadMessage();
+
+      if (LEAD_ENDPOINT) {
+        const response = await fetch(LEAD_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            ...quizData,
+            message: message,
+            source: 'site'
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Ошибка отправки заявки');
+        }
+
+        return;
+      }
+
+      const whatsappUrl = 'https://wa.me/' + WHATSAPP_PHONE + '?text=' + encodeURIComponent(message);
+      window.open(whatsappUrl, '_blank');
+    }
+
+    nextBtn.addEventListener('click', async function() {
+      if (currentStep === 1 && !quizData.service) {
+        alert('Выберите, что нужно сделать');
+        return;
+      }
+
+      if (currentStep === 2 && !quizData.brand) {
+        alert('Выберите бренд или консультацию');
+        return;
+      }
+
+      if (currentStep === 3 && !quizData.budget) {
+        alert('Выберите бюджет');
+        return;
+      }
+
+      if (currentStep === 4 && !quizData.payment) {
+        alert('Выберите способ оплаты');
+        return;
+      }
+
+      if (currentStep === 5) {
+        const nameInput = document.getElementById('nameInput');
+        const phoneInput = document.getElementById('phoneInput');
+        const name = nameInput.value.trim();
+        const phone = phoneInput.value.trim();
+
+        let hasError = false;
+
+        if (!validateName(name)) {
+          document.getElementById('nameError').classList.add('show');
+          nameInput.focus();
+          hasError = true;
+        }
+
+        if (!validatePhone(phone)) {
+          document.getElementById('phoneError').classList.add('show');
+
+          if (!hasError) {
+            phoneInput.focus();
+          }
+
+          hasError = true;
+        }
+
+        if (hasError) {
+          return;
+        }
+
+        quizData.name = name;
+        quizData.phone = phone;
+
+        nextBtn.disabled = true;
+        nextBtn.textContent = 'Отправляю...';
+
+        try {
+          console.log('Заявка:', quizData);
+          await sendLead();
+          showToast();
+          resetQuiz();
+        } catch (error) {
+          alert('Не получилось отправить заявку. Позвоните мне напрямую: +7 993 972-90-08');
+          console.error(error);
+        } finally {
+          nextBtn.disabled = false;
+          updateQuiz();
+        }
+
+        return;
+      }
+
+      currentStep++;
+      updateQuiz();
+    });
+
+    backBtn.addEventListener('click', function() {
       if (currentStep > 1) {
         currentStep--;
         updateQuiz();
@@ -318,10 +1498,12 @@
 
         document.querySelectorAll('.faq-item').forEach((el) => {
           el.classList.remove('open');
+          el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
         });
 
         if (!isOpen) {
           item.classList.add('open');
+          button.setAttribute('aria-expanded', 'true');
         }
       });
     });
